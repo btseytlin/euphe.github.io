@@ -1,13 +1,14 @@
 ---
-title: Predicting CS:GO match outcomes with logistic regression
-date: 2017-02-08 10:08:00 +03:00
+title: 'Predicting CS:GO match outcomes with logistic regression'
+date: {}
 categories:
-- machine learning
+  - machine learning
 tags:
-- python
-- data science
-- cs:go
-- classification
+  - python
+  - data science
+  - 'cs:go'
+  - classification
+published: true
 ---
 
 One day I felt I could do something interesting with my data science skills.
@@ -30,7 +31,7 @@ Steps taken, in short:
 3. Extracting features from the collected matches.
 4. Training and validating a *logistic regression* model using *sklearn*.
 
-# Scraping
+## Scraping
 I needed retrospective data.
 I found a website that had an archive of csgo matches dating as far as 2012.
 19470 html pages containing info about a CSGO match.
@@ -43,7 +44,7 @@ It didn't take long to write a script to concurrently download the pages. Concur
 I made separate scripts to download the pages and to parse them. It seems intuitive to parse each page right after getting it's html and avoid saving 1.5 GB of html files in a folder. But consider this: what happens if you parse the pages, but later decide to change your parsing code? For example you could initially think that match maps were irrelevant, but later decide that you need that information. If you didn't save the pages you would have to download everything again. If you have the pages saved you can simply alter the parsing code.
 To sum it up: when you need to scrape and parse make two scripts, one to scrape, one to parse.
 
-##Parsing
+## Parsing
 Each match page contained various info. I chose to extract the following:
 `date, match_id, team1, team2, team1_score, team2_score, map1, map1_score, map2, map2_score, map3, map3_score`.
 
@@ -84,7 +85,7 @@ Here's a quick glance at the data:
 
 For convinience during processing I also added the `mtype` column. `mtype` is a categorical variable of match type, it can be `bo1`, `bo2`, `bo3` . The value is derived from `map1`, `map2`, `map3`. I split `map1_score` into separate columns `map1_score1` (team 1 score on map 1) and `map1_score2` (team 2 score on map 1).
 
-##The Y
+## The Y
 I had a classification task at hand.
 The outcome variable, the class to predict, was choosen as such:
 class 1: team number 1 won
@@ -112,7 +113,7 @@ def get_winner(row):
 The reason I haven't used a separate class for ties is that there are very few of them. 
 The tie class would be underrepresented, which would require  carefully  tuning the training process . In my case trying to predict the ties significantly lowered accuracy.
 
-##The X (Features)
+## The X (Features)
 From my experience futures are the most important in a machine learning task.
 No model will be useful if there is no information that explains the outcome you are trying to predict.
 
@@ -345,18 +346,18 @@ You can see that the confusion matrix is diagonal. Of 502+202 total class 0 occu
 The coefficients tell interesting things.
 `t1_win_pct_3m`, `prev_enc_t1win_pct`, `type_t1_win`, `t2_win_pct_3m`, `type_t2_win` have the highest weights, meaning they are most significant. "Specific experience" features completely dominate the "overall experience" features.
 
-##That's it folks!
+## That's it folks!
 Thanks for reading, I hope you found something interesting here.
 If you spot a mistake, make sure to point it out.
 I welcome emails and comments.
 
-##Give me CSVs already
+## Give me CSVs already
 I can't provide the original data (I don't want the wrath of angry cs:go fans upon me), but I am providing a few obsfuscated samples for you to play with:
 [matches_sample.csv]()
 [matches_processed_sample.csv]()
 [team_performance_and_match_type_conditional_predicates)_sample.csv]()
 
-##What I didn't try (or failed at)
+## What I didn't try (or failed at)
 * It's believed some teams play better on either terrorist or counter terrorist side. It's also believed being on a certain side can give significant advantage on certain maps. Perhaps adding a future `team1_side`would improve accuracy. Also if there was an advantage to certain sides on certain maps, including map data would reveal info about it.
 * Information about players. I actually gathered info about players: each player's results in each match, and team player listings for each match. However, to my surprise, including player-related futures only made predictions worse.
 * Aggregation could be done with more *numpy*/*pandas* vectorization.
