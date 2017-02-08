@@ -358,8 +358,9 @@ I can't provide the original data (I don't want the wrath of angry cs:go fans up
 [team_performance_and_match_type_conditional_predicates)_sample.csv]()
 
 ## What I didn't try (or failed at)
-* It's believed some teams play better on either terrorist or counter terrorist side. It's also believed being on a certain side can give significant advantage on certain maps. Perhaps adding a future `team1_side`would improve accuracy. Also if there was an advantage to certain sides on certain maps, including map data would reveal info about it.
-* Information about players. I actually gathered info about players: each player's results in each match, and team player listings for each match. However, to my surprise, including player-related futures only made predictions worse.
-* Aggregation could be done with more *numpy*/*pandas* vectorization.
-* Inspecting prediction results showed that predicting pro matches was about 65% accurate at best, whilist predicting matches between unexperienced teams was more accurate. But it only means that between two unexperienced teams one  usuallyhas *at least some experience* and the other is completely new, so the prediction is easy to make. Perhaps using boosting to account for different kinds of matches would be wise.
-* Match type was calculated from the amount of maps played. So a best of two match that had gone for 3 maps was assigned type `bo3`. This might add confusion.
+
+- It's believed some teams play better on either terrorist or counter terrorist side. It's also believed being on a certain side can give significant advantage on certain maps. Perhaps adding a future `team1_side`would improve accuracy. Also if there was an advantage to certain sides on certain maps, including map data would reveal info about it.
+- Information about players. I actually gathered info about players: each player's results in each match, and team player listings for each match. However, to my surprise, including player-related futures only made predictions worse.
+- Aggregation could be done with more *numpy*/*pandas* vectorization.
+- Inspecting prediction results showed that predicting pro matches was about 65% accurate at best, whilist predicting matches between unexperienced teams was more accurate. But it only means that between two unexperienced teams one  usuallyhas *at least some experience* and the other is completely new, so the prediction is easy to make. Perhaps using boosting to account for different kinds of matches would be wise.
+- Match type was calculated from the amount of maps played. So a best of two match that had gone for 3 maps was assigned type `bo3`. This might add confusion.
