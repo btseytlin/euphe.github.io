@@ -1,6 +1,6 @@
 ---
 title: Predicting CS:GO match outcomes with logistic regression
-date: 2017-02-08 07:08:00 Z
+date: 2017-02-08 08:08:00 +01:00
 categories:
 - machine learning
 tags:
@@ -29,7 +29,7 @@ Steps taken, in short:
 3. Extracting features from the collected matches.
 4. Training and validating a *logistic regression* model using *sklearn*.
 
-##Scraping
+## Scraping
 I needed retrospective data.
 I found a website that had an archive of csgo matches dating as far as 2012.
 19470 html pages containing info about a CSGO match.
