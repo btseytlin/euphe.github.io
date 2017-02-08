@@ -1,9 +1,15 @@
 ---
-layout: post
 title: Sample Post
-excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
-modified: 2013-05-31
-tags: [intro, beginner, jekyll, tutorial]
+date: 2011-03-10 00:00:00 Z
+tags:
+- intro
+- beginner
+- jekyll
+- tutorial
+layout: post
+excerpt: 'Just about everything you''ll need to style in the theme: headings, paragraphs,
+  blockquotes, tables, code blocks, and more.'
+modified: 2013-05-31 00:00:00 Z
 comments: true
 pinned: true
 image:

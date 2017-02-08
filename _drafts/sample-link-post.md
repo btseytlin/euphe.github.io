@@ -1,8 +1,11 @@
 ---
+title: Sample Link Post
+date: 2013-08-12 00:00:00 Z
+tags:
+- sample post
+- link post
 layout: post
-title: "Sample Link Post"
-excerpt: "Try click on the link icon."
-tags: [sample post, link post]
+excerpt: Try click on the link icon.
 link: http://mademistakes.com
 share: true
 ---
