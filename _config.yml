@@ -1,6 +1,6 @@
 ---
-title: Leonids
-timezone: Europe/Paris
+title: Euphe.github.io
+timezone: Europe/Moscow
 collections:
   posts:
     title: Posts
@@ -9,8 +9,8 @@ collections:
     title: Uploads
     output: true
 email: 
-description: A simple and awesome blog theme powered by jekyll.
-url: 
+description: 
+url: euphe,github.io
 markdown: kramdown
 highlighter: rouge
 excerpt_separator: "<!--more-->"
@@ -22,10 +22,10 @@ kramdown:
   toc_levels: 1..6
   enable_coderay: false
 owner:
-  name: Leonids
+  name: Euphe
   avatar: leonids-logo.png
-  job: A jekyll theme
-  bio: A simple and awesome blog theme powered by jekyll.
+  job: 
+  bio: 
   email: 
   disqus-shortname: 
   twitter: 
