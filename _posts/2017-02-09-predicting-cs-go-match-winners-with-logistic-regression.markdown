@@ -8,6 +8,7 @@ tags:
 - games
 - classification
 - experiments
+excerpt: A story of scraping CS:GO matches, extracting features and applying logistic regression to predict the winner of a match.
 comments: true
 ---
 
