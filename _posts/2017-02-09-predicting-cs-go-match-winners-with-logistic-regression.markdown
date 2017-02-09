@@ -2,12 +2,12 @@
 title: Predicting CS:GO match winners with logistic regression
 date: 2017-02-09 09:27:00 +03:00
 categories:
-- experiments
 - data science
 tags:
 - python
 - games
 - classification
+- experiments
 comments: true
 ---
 
