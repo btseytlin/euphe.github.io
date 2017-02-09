@@ -52,6 +52,7 @@ Each match page contained various info. I chose to extract the following:
 I had to preprocess all team names because they had a lot of garbage. Someone had to add a `'` character to their team name. I wonder why nobody thought of adding `;` in the middle of their team name, just to make my life hell.
 
 Here is my team name processing code:
+
 ```python
 def preprocess_team_name(tname):
     return re.sub(r'[\t\s\[\]\'\.!]','', re.sub(r'[^\x00-\x7f]',r'', tname.strip().lower()).replace(' ', '-'))
@@ -62,6 +63,7 @@ However ugly it is, it does the following:
 3. Remove all non latin letters
 4. Remove certain blacklisted characters
 Example:
+
 ```python
 >>> preprocess_team_name("vg-сукаzen1999l33t'][")
 'vg-zen1999l33t'
@@ -92,6 +94,7 @@ class 1: team number 1 won
 class 0: team number 2 won or a tie (in other words: team number 1 didn't win)
 
 I wrote a function to get the match winner from a pandas dataframe row:
+
 ```python
 def get_winner(row):
     mtype = row.type
@@ -145,7 +148,6 @@ I tried to use map related futures as well. It's a popular idea that pro teams a
 
 I extracted the futures with a few aggregation functions.
 Here's the code:
-
 
 ```python
 features = ["t1_win_pct", "t1_matches", "t2_win_pct", "t2_matches", "t1_win_pct_3m", "t1_matches_3m", "t2_win_pct_3m", "t2_matches_3m", 'prev_enc_t1win_pct' ]
