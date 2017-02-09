@@ -143,6 +143,7 @@ I tried to use map related futures as well. It's a popular idea that pro teams a
 
 I extracted the futures with a few aggregation functions.
 Here's the code:
+
 ```
 features = ["t1_win_pct", "t1_matches", "t2_win_pct", "t2_matches", "t1_win_pct_3m", "t1_matches_3m", "t2_win_pct_3m", "t2_matches_3m", 'prev_enc_t1win_pct' ]
 
