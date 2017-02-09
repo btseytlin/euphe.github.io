@@ -13,16 +13,13 @@
   }
   @include media-query($medium-screen) {
     height: 100vh;
+      width: 900px;
     overflow-y: scroll;
+    overflow-x: hidden;
     position: initial;
     top: 0;
   }
 
-  @include media-query($large-screen) {
-    width: 900px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
 }
 
 .image-credit {
