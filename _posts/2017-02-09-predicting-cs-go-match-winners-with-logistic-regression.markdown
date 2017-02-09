@@ -171,7 +171,7 @@ def aggregate_prev_enc(team1, team2, dt_end=None, dt_start = None):
     t1_win_pct = 0.5
     try:
         try:
-                encounters_1 = pivot.ix[team1].ix[team2]
+            encounters_1 = pivot.ix[team1].ix[team2]
         except:
             encounters_1 = pd.DataFrame([0,0], index= ['winner_0', 'winner_1'])
             
