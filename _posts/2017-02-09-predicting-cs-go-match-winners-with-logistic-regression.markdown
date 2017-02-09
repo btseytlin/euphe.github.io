@@ -35,6 +35,7 @@ I found a website that had an archive of csgo matches dating as far as 2012.
 19470 html pages containing info about a CSGO match.
 
 It didn't take long to write a script to concurrently download the pages. Concurrency was a implemented using *asyncio* and *aiohttp*. These things are lovely.
+
 > __Side note on web scraping and proxies__
 >The first attempt to download that many pages got my IP banned from the site forever. I wrote a script to scrape free proxy lists from the internet and check proxies. Then funnelled requests through them. I looked up to this example: [Multithreaded web scraper with proxy and user agent switching](http://codereview.stackexchange.com/questions/107087/multithreaded-web-scraper-with-proxy-and-user-agent-switching).  The major difference is that I used *asyncio* for concurrency .
 >Later I found out about [proxybroker](https://pypi.python.org/pypi/proxybroker/). If you need to make requests with proxies I advice you to use it. It's poorly doumented though so drop me an email if you need help.
