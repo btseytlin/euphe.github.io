@@ -10,7 +10,7 @@ collections:
     output: true
 email: 
 description: 
-url: http://euphe.github.io
+url: https://euphe.github.io
 markdown: kramdown
 highlighter: rouge
 excerpt_separator: "<!--more-->"
