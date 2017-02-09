@@ -12,9 +12,7 @@ excerpt: A story of scraping CS:GO matches, extracting features and applying log
 comments: true
 ---
 
-One day I felt I could do something interesting with my data science skills.
-I thought: what if I can predict cs:go match winners?
-I have never been into esports so I was going into this blind, not knowing what features to look for. 
+One day I felt like doing something fun with my data science skills. I thought: what if I can predict CS:GO match winners? I have never been into esports, but it was interesting.
 I welcome you to come along my path in this post.
 I calrify this is not a tutorial, rather a story I want to share.
 
