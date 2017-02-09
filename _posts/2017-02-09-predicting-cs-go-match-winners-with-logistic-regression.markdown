@@ -362,9 +362,13 @@ I welcome emails and comments.
 
 ## Give me CSVs already
 I can't provide the original data (I don't want the wrath of angry cs:go fans upon me), but I am providing a few obsfuscated samples for you to play with:
-[matches_sample.csv]()
+
+[matches_sample.csv]({{site.url}}/files/csgo/matches_sample.csv)
+
 [matches_processed_sample.csv]()
+
 [team_performance_and_match_type_conditional_predicates)_sample.csv]()
+
 
 ## What I didn't try (or failed at)
 
