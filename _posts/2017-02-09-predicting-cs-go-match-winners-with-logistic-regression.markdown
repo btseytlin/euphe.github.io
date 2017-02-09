@@ -256,26 +256,29 @@ Take a glance at the futures:
 | 837 | 2012-12-02 00:00:00 | 0 | alternate-attax | 3dmax | 0.5 | 26 | 0.5294117647058824 | 17 | 0.5 | 26 | 0.5294117647058824 | 17 | 0.5 | 1.0 | 0.0 | 0.0 | 0.4728682170542636 | 0.5251396648044693
 | 796 | 2012-12-02 00:00:00 | 0 | nextgaming | fr34kshow | 1.0 | 4 | 0.5 | 6 | 1.0 | 4 | 0.5 | 6 | 0.5 | 1.0 | 0.0 | 0.0 | 1.0 | 0.36363636363636365 |
 
-##Logistic regression, oh my
+## Logistic regression, oh my
 
 Now that we have the futures, comes the part with predicting (and testing the model).
 
 I chose logistic regression because it's enough for the task and also shows the significance of features after fitting.
 I used `klearn.linear_model.LogisticRegression`.
 I established the best parameters I could using grid search:
-```
+
+```python
 tol = 0.0009
 c = 2.2
 ```
 
 Loaded the futures:
-```
+
+```python
 df = pd.read_csv("processed_data/team_performance_and_match_type_conditional_predicates.csv")
 features= df.drop(['date','winner', 'team1', 'team2', 'match_id'], axis=1).columns
 ```
 
 A quick evaluation of the model using `cross_val_score`:
-```
+
+```python
 rs = ShuffleSplit(len(proc_X))
 proc_X = pd.DataFrame(scale(df[features]), columns=features)
 proc_Y = df['winner']
@@ -283,8 +286,10 @@ clf = LogisticRegression(tol=tol, C=c)
 scores = cross_val_score(clf, proc_X, list(proc_Y), cv=rs)
 print(pd.Series(scores))
 ```
+
 Output:
-```
+
+```python
 0    0.807420
 1    0.807965
 2    0.828696
@@ -297,10 +302,12 @@ Output:
 9    0.817239
 dtype: float64
 ```
+
 Whoa, predicting if a team wins the match with 80% accuracy.
 
 More detailed info:
-```
+
+```python
 rs = ShuffleSplit(len(proc_X))
 for train_index, test_index in rs:
     X_train, X_test = proc_X.iloc[train_index], proc_X.iloc[test_index]
@@ -316,7 +323,8 @@ for train_index, test_index in rs:
 ```
 
 Output for one iteration:
-```
+
+```python
 [17286 12530  2640 ..., 13144 11121 16165] [15593  8899  5588 ..., 12516 17494 10061]
      0    1
 0  502  202
@@ -340,6 +348,7 @@ t2_win_pct_3m       1.247174
 accuracy
 0.8041462084015275
 ```
+
 Most important here is `confusion_matrix`. It's the easiest tool to assess prediction quality.
 You can see that the confusion matrix is diagonal. Of 502+202 total class 0 occurences,  the model got 502  right, of 972+157 class 1 occurences  the model got 972 right. That's a good result, no class appears to be overrepresented.
 
