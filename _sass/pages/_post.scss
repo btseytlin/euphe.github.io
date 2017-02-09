@@ -17,6 +17,12 @@
     position: initial;
     top: 0;
   }
+
+  @include media-query($large-screen) {
+    width: 900px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
 }
 
 .image-credit {
@@ -91,6 +97,12 @@ a.read-more {
   padding-bottom: 50px;
   .post-header {
     margin: 0 auto 50px;
+  }
+
+  @include media-query($large-screen) {
+    width: 900px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 }
 
