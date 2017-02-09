@@ -11,7 +11,7 @@ collections:
 email: 
 description: 
 url: https://euphe.github.io
-markdown: kramdown
+markdown: redcarpet
 highlighter: rouge
 excerpt_separator: "<!--more-->"
 permalink: "/articles/:year-:month/:title"
