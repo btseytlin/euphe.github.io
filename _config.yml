@@ -11,7 +11,7 @@ collections:
 email: 
 description: 
 url: https://euphe.github.io
-markdown: redcarpet
+markdown: kramdown
 highlighter: rouge
 excerpt_separator: "<!--more-->"
 permalink: "/articles/:year-:month/:title"
@@ -22,8 +22,6 @@ kramdown:
   toc_levels: 1..6
   enable_coderay: false
 
-redcarpet:
-  extensions: ["tables", "autolink", "with_toc_data"]
 owner:
   name: Euphe
   avatar: 
