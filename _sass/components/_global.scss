@@ -21,6 +21,7 @@ table,
 th,
 td {
   border: none;
+  font-size: small;
 }
 .table {
   display: table;
@@ -71,11 +72,14 @@ thead {
 }
 td,
 th {
-  padding: 15px 5px;
+  padding: 5px 2px;
   display: table-cell;
-  text-align: left;
+  text-align: center;
   vertical-align: middle;
-  border-radius: 2px;
+
+  border: 1px solid $table-border-color;
+  text-align: center;
+
 }
 tfoot {
   border-top: 1px solid $table-border-color;
