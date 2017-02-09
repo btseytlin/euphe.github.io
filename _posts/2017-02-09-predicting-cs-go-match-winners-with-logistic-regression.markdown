@@ -361,16 +361,16 @@ If you spot a mistake, make sure to point it out.
 I welcome emails and comments.
 
 ## Give me CSVs already
-I can't provide the original data (I don't want the wrath of angry cs:go fans upon me), but I am providing a few obsfuscated samples for you to play with:
+I can't provide the original data (don't want the wrath of angry cs:go fans upon me), but I am providing obsfuscated samples for you to play with:
 
 [matches_sample.csv]({{site.url}}/files/csgo/matches_sample.csv)
 
-[matches_processed_sample.csv]()
+[matches_processed_sample.csv]({{site.url}}/files/csgo/matches_processed_sample.csv)
 
-[team_performance_and_match_type_conditional_predicates)_sample.csv]()
+[team_performance_and_match_type_conditional_predicates_sample.csv]({{site.url}}/files/csgo/team_performance_and_match_type_conditional_predicates_sample.csv)
 
 
-## What I didn't try (or failed at)
+## What I didn't try or failed at
 
 - It's believed some teams play better on either terrorist or counter terrorist side. It's also believed being on a certain side can give significant advantage on certain maps. Perhaps adding a future `team1_side`would improve accuracy. Also if there was an advantage to certain sides on certain maps, including map data would reveal info about it.
 - Information about players. I actually gathered info about players: each player's results in each match, and team player listings for each match. However, to my surprise, including player-related futures only made predictions worse.
