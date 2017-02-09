@@ -24,6 +24,7 @@ My workhorse was *Python 3.5*
 Libraries used: *asyncio*, *aiohttp*, *beautifulsoup*, *pandas*, *sklearn*.
 
 Steps taken, in short:
+
 1. Scraping CS:GO matches from a website, using *asyncio*, *aiohttp* and free proxies to download a lot of web pages.
 2. Parsing HTML with *beautifulsoup*, turning collected data into a *csv* file using *pandas*.
 3. Extracting features from the collected matches.
@@ -31,21 +32,24 @@ Steps taken, in short:
 
 ## Scraping
 I needed retrospective data.
-I found a website that had an archive of csgo matches dating as far as 2012.
-19470 html pages containing info about a CSGO match.
+I found a website that had an archive of CS:GO matches dating as far as 2012.
+19470 html pages of CS:GO matches.
 
-It didn't take long to write a script to concurrently download the pages. Concurrency was a implemented using *asyncio* and *aiohttp*. These things are lovely.
+It didn't take long to write a script to concurrently download the pages. Concurrency was implemented using *asyncio* and *aiohttp*. These things are lovely.
 
 > __Side note on web scraping and proxies__
->The first attempt to download that many pages got my IP banned from the site forever. I wrote a script to scrape free proxy lists from the internet and check proxies. Then funnelled requests through them. I looked up to this example: [Multithreaded web scraper with proxy and user agent switching](http://codereview.stackexchange.com/questions/107087/multithreaded-web-scraper-with-proxy-and-user-agent-switching).  The major difference is that I used *asyncio* for concurrency .
->Later I found out about [proxybroker](https://pypi.python.org/pypi/proxybroker/). If you need to make requests with proxies I advice you to use it. It's poorly doumented though so drop me an email if you need help.
+> 
+>The first attempt to download that many pages got my IP banned from the site forever. I wrote a script to scrape free proxy lists from the internet and check proxies. Then funnelled requests through proxies. Coding that utility I looked up to this example: [Multithreaded web scraper with proxy and user agent switching](http://codereview.stackexchange.com/questions/107087/multithreaded-web-scraper-with-proxy-and-user-agent-switching).  The major difference is that I used *asyncio* for concurrency .
+>
+>Later I found out about [proxybroker](https://pypi.python.org/pypi/proxybroker/). If you need to make requests with proxies I advice you to use it instead of writing your own. It's poorly doumented though so drop me an email if you need help.
 
-I made separate scripts to download the pages and to parse them. It seems intuitive to parse each page right after getting it's html and avoid saving 1.5 GB of html files in a folder. But consider this: what happens if you parse the pages, but later decide to change your parsing code? For example you could initially think that match maps were irrelevant, but later decide that you need that information. If you didn't save the pages you would have to download everything again. If you have the pages saved you can simply alter the parsing code.
-To sum it up: when you need to scrape and parse make two scripts, one to scrape, one to parse.
+I made separate scripts to download the pages and to parse them. It seems intuitive to parse each page right after getting it's html without saving the page to disc. But consider this: what happens if you parse the pages, but later decide to change your parsing code? For example you could initially think that match maps were irrelevant, but later decide that you need them. If you didn't save the pages you would have to download everything again. If you have the pages saved you can simply alter the parsing code.
+
+To sum it up: when you need to scrape and parse many pages first scrape all pages, then parse them.
 
 ## Parsing
 Each match page contained various info. I chose to extract the following:
-`date, match_id, team1, team2, team1_score, team2_score, map1, map1_score, map2, map2_score, map3, map3_score`.
+`date, match_id, team1, team2, team1_score, team2_score, map1, map1_score, map2, map2_score, map3, map3_score`
 
 `team1` and `team2` are team names. 
 I had to preprocess all team names because they had a lot of garbage. Someone had to add a `'` character to their team name. I wonder why nobody thought of adding `;` in the middle of their team name, just to make my life hell.
@@ -62,7 +66,7 @@ However ugly it is, it does the following:
 2. Lowercase, strip trailing spaces
 3. Remove all non latin letters
 4. Remove certain blacklisted characters
-5. 
+
 Example:
 
 ```python
@@ -72,7 +76,6 @@ Example:
 (All similarities to real team names are accidental and unintended.)
 
 CS:GO matches can be of three types: best of one, best of two, best of three. In best of one two teams compete on one map, the one who wins the map wins the match. In best of two teams compete on two maps, and if each team wins one map, a third map is played to decide the winner. As for best of three, I leave it as an exercise for you to guess what that means.
-
 
 `map1` and `map1_score` are always present, `map1` is the map name and `map1_score` is the score of format `{team1_score}:{team2_score}` (for example `10:16`)
 `map2` and `map2_score` are same as above, but if the match type is best of one take `NaN` values. 
@@ -86,15 +89,16 @@ Here's a quick glance at the data:
 | 22nd of september 2012 | 8864275 | nip | bemyfrag | mirage | 16:1 | NaN | NaN | NaN | NaN |
 | 22nd of september 2012 | 8864276 | nip | x6tence | nuke | 16:7 | NaN | NaN | NaN | NaN |
 
-For convinience during processing I also added the `mtype` column. `mtype` is a categorical variable of match type, it can be `bo1`, `bo2`, `bo3` . The value is derived from `map1`, `map2`, `map3`. I split `map1_score` into separate columns `map1_score1` (team 1 score on map 1) and `map1_score2` (team 2 score on map 1).
+For convinience during processing I also added the `mtype` column. `mtype` is a categorical variable of match type, it takes values `"bo1"`, `"bo2"`, `"bo3"` . The value is derived from `map1`, `map2`, `map3`. Also I split `map1_score` into separate columns `map1_score1` (team 1 score on map 1) and `map1_score2` (team 2 score on map 1). Same for `map2_score`, `map3_score`.
 
 ## The Y
 I had a classification task at hand.
 The outcome variable, the class to predict, was choosen as such:
-class 1: team number 1 won
-class 0: team number 2 won or a tie (in other words: team number 1 didn't win)
 
-I wrote a function to get the match winner from a pandas dataframe row:
+- class 1: team 1 won,
+- class 0: team 2 won or a tie (in other words: team 1 didn't win).
+
+I wrote a function to derive the match winner from each pandas dataframe row:
 
 ```python
 def get_winner(row):
@@ -114,36 +118,38 @@ def get_winner(row):
         return 0 #team 2 won or a tie
 ```
 
-The reason I haven't used a separate class for ties is that there are very few of them. 
-The tie class would be underrepresented, which would require  carefully  tuning the training process . In my case trying to predict the ties significantly lowered accuracy.
+I didn't use a separate class for ties because there were very few of them. 
+The tie class, if it existed, would be underrepresented, which would require carefully tuning the training process. In my case trying to predict the ties significantly lowered prediction accuracy.
 
 ## The X (Features)
-From my experience futures are the most important in a machine learning task.
+From my experience futures are the most important thing in a machine learning task.
 No model will be useful if there is no information that explains the outcome you are trying to predict.
 
-To predict which team wins, we need to find variables that describe each team.
-These variables should include team capabilities:
-1. Overall experience and efficiency
-2. Recent overall experience and efficiency
-2. Experience and efficiency in specific situations (efficiency on a given map, against a given team, in a given moon phase perhaps)
+To predict which team wins, we need variables that describe each team's capabilities.
+My reasoning was to find variables with the following information:
 
-The main metrics of efficiency is the win rate.
+1. Overall team experience and efficiency,
+2. Recent overall experience and efficiency,
+2. Experience and efficiency in specific situations (for example, efficiency on a given map, against a given team, in a given moon phase perhaps).
+
+The main metric of efficiency is the win rate.
 
 I chose the following features:
-`t1_win_pct` - matches wonto matches played ratio of team 1, all time
-`t1_matches` - amount of matches played by team 1, all time
-`t2_win_pct` - same as team 1
-`t2_matches` - same as team 1
-`t1_win_pct_3m` -  matches wonto matches played ratio  of team 1, over last 3 months
-`t1_matches_3m` - amount of matches  played by  team 1, over last 3 months
-`t2_win_pct_3m` - same as team 1
-`t2_matches_3m` - same as team 1
-`prev_enc_t1win_pct` - amount of wins of team 1 over team 2, divided by the total amount of encouters team 1 and team 2 had
-`bo1` - 1 if match type is best of one, 0 otherwise
-`bo2` - 1 if match type is best of two, 0 otherwise
-`bo3` - 1 if match type is best of three, 0 otherwise
-`type_t1_win` - total matches of match type won by team 1, divided by total matches of type played by team 1
-`type_t2_win` - same as above for team 2
+
+- `t1_win_pct` - matches won to matches played ratio of team 1, all time,
+- `t1_matches` - amount of matches played by team 1, all time,
+- `t2_win_pct` - same as team 1,
+- `t2_matches` - same as team 1,
+- `t1_win_pct_3m` -  matches wonto matches played ratio  of team 1, over last 3 months,
+- `t1_matches_3m` - amount of matches  played by  team 1, over last 3 months,
+- `t2_win_pct_3m` - same as team 1,
+- `t2_matches_3m` - same as team 1,
+- `prev_enc_t1win_pct` - amount of wins of team 1 over team 2, divided by the total amount of encouters team 1 and team 2 had,
+- `bo1` - 1 if match type is best of one, 0 otherwise,
+- `bo2` - 1 if match type is best of two, 0 otherwise,
+- `bo3` - 1 if match type is best of three, 0 otherwise,
+- `type_t1_win` - total matches of match type won by team 1, divided by total matches of type played by team 1,
+- `type_t2_win` - same as above for team 2.
 
 I tried to use map related futures as well. It's a popular idea that pro teams are better on certain maps, so each team has "their best" and "their worst" maps. In my case using map data made predictions worse. 
 
@@ -253,7 +259,7 @@ df = pd.concat([df, mtype_df], axis=1)
 ```
 It's far from the best code I have written.
 
-Take a glance at the futures:
+A glance at the futures:
 
 | match_id | date | winner | team1 | team2 | t1_win_pct | t1_matches | t2_win_pct | t2_matches | t1_win_pct_3m | t1_matches_3m | t2_win_pct_3m | t2_matches_3m | prev_enc_t1win_pct | bo1 | bo2 | bo3 | type_t1_win | type_t2_win
 | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | -
@@ -263,10 +269,11 @@ Take a glance at the futures:
 
 ## Logistic regression, oh my
 
-Now that we have the futures, comes the part with predicting (and testing the model).
+Now comes the part with applying a model and testing it.
 
-I chose logistic regression because it's enough for the task and also shows the significance of features after fitting.
-I used `sklearn.linear_model.LogisticRegression`.
+I chose *logistic regression* because it's enough for the task and also shows the significance of features after fitting.
+I used `sklearn.linear_model.LogisticRegression`. For validation `corss_val_score` and `ShuffleSplit` were useful.
+
 I established the best parameters I could using grid search:
 
 ```python
@@ -310,7 +317,7 @@ dtype: float64
 
 Whoa, predicting if a team wins the match with 80% accuracy.
 
-More detailed info:
+More detailed info and feature coefficients:
 
 ```python
 rs = ShuffleSplit(len(proc_X))
@@ -353,16 +360,15 @@ accuracy
 0.8041462084015275
 ```
 
-Most important here is `confusion_matrix`. It's the easiest tool to assess prediction quality.
-You can see that the confusion matrix is diagonal. Of 502+202 total class 0 occurences,  the model got 502  right, of 972+157 class 1 occurences  the model got 972 right. That's a good result, no class appears to be overrepresented.
+`confusion_matrix` is a great tool to assess prediction quality.
+You can see that the confusion matrix is diagonal. Of `502+202` total class 0 occurences,  the model got `502`  right, of `972+157` class 1 occurences  the model got `972` right. That's a good result, no class appears to be overrepresented.
 
-The coefficients tell interesting things.
+The feature coefficients tell us interesting things.
 `t1_win_pct_3m`, `prev_enc_t1win_pct`, `type_t1_win`, `t2_win_pct_3m`, `type_t2_win` have the highest weights, meaning they are most significant. "Specific experience" features completely dominate the "overall experience" features.
 
 ## That's it folks!
 Thanks for reading, I hope you found something interesting here.
-If you spot a mistake, make sure to point it out.
-I welcome emails and comments.
+If you spot a mistake, make sure to point it out in comments or by email.
 
 ## Give me CSVs already
 I can't provide the original data (don't want the wrath of angry cs:go fans upon me), but I am providing obsfuscated samples for you to play with:
