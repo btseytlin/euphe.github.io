@@ -1,7 +1,6 @@
 ---
-title: Csgo Preidction
-date: 2017-02-09 00:00:00 +03:00
-published: false
+title: CS:GO
+date: 2017-02-08 11:48:00 +03:00
 ---
 
 One day I felt I could do something interesting with my data science skills.

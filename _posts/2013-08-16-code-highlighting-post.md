@@ -1,9 +1,11 @@
 ---
-layout: post
 title: Syntax Highlighting Post
-excerpt: "Demo post displaying the various ways of highlighting code in Markdown."
-categories: [code]
-modified: 2014-09-14
+date: 2013-08-16 00:00:00 +04:00
+categories:
+- code
+layout: post
+excerpt: Demo post displaying the various ways of highlighting code in Markdown.
+modified: 2014-09-14 04:00:00 +04:00
 comments: true
 ---
 

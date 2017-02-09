@@ -1,7 +1,15 @@
 ---
-title: Csgo Preidction
-date: 2017-02-09 00:00:00 +03:00
-published: false
+title: Predicting cs:go match outcomes
+date: 2017-02-08 11:43:00 +03:00
+categories:
+- data science
+- python
+- experiments
+tags:
+- games
+- classification
+- logistic regression
+- cs:go
 ---
 
 One day I felt I could do something interesting with my data science skills.

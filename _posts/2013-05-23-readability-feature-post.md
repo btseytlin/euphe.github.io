@@ -1,8 +1,11 @@
 ---
+title: Post with Large Feature Image and Text
+date: 2013-05-23 00:00:00 +04:00
+categories:
+- paragraph
+- feature photo
 layout: post
-title: "Post with Large Feature Image and Text"
-excerpt: "Custom written post descriptions are the way to go... if you're not lazy."
-categories: [paragraph, feature photo]
+excerpt: Custom written post descriptions are the way to go... if you're not lazy.
 author: mike
 comments: true
 image:

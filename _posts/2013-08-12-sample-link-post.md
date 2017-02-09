@@ -1,8 +1,10 @@
 ---
+title: Sample Link Post
+date: 2013-08-12 00:00:00 +04:00
+categories:
+- link post
 layout: post
-title: "Sample Link Post"
-excerpt: "Try click on the link icon."
-categories: [link post]
+excerpt: Try click on the link icon.
 link: http://renyuanz.github.io
 share: true
 ---

@@ -1,8 +1,10 @@
 ---
+title: Testing Readability with a Bunch of Text
+date: 2012-05-22 00:00:00 +04:00
+categories:
+- paragraph
 layout: post
-title: "Testing Readability with a Bunch of Text"
-excerpt: "A ton of text to test readability."
-categories: [paragraph]
+excerpt: A ton of text to test readability.
 comments: true
 ---
 
