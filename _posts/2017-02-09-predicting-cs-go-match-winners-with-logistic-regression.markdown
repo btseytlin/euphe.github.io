@@ -57,10 +57,12 @@ def preprocess_team_name(tname):
     return re.sub(r'[\t\s\[\]\'\.!]','', re.sub(r'[^\x00-\x7f]',r'', tname.strip().lower()).replace(' ', '-'))
 ```
 However ugly it is, it does the following:
+
 1. Reaplce spaces with `-`
 2. Lowercase, strip trailing spaces
 3. Remove all non latin letters
 4. Remove certain blacklisted characters
+5. 
 Example:
 
 ```python
@@ -292,7 +294,7 @@ print(pd.Series(scores))
 
 Output:
 
-```python
+```
 0    0.807420
 1    0.807965
 2    0.828696
@@ -327,7 +329,7 @@ for train_index, test_index in rs:
 
 Output for one iteration:
 
-```python
+```
      0    1
 0  502  202
 1  157  972
