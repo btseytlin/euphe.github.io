@@ -328,7 +328,6 @@ for train_index, test_index in rs:
 Output for one iteration:
 
 ```python
-[17286 12530  2640 ..., 13144 11121 16165] [15593  8899  5588 ..., 12516 17494 10061]
      0    1
 0  502  202
 1  157  972
