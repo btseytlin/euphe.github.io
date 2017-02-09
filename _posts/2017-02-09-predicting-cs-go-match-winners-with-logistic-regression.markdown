@@ -264,7 +264,7 @@ Take a glance at the futures:
 Now that we have the futures, comes the part with predicting (and testing the model).
 
 I chose logistic regression because it's enough for the task and also shows the significance of features after fitting.
-I used `klearn.linear_model.LogisticRegression`.
+I used `sklearn.linear_model.LogisticRegression`.
 I established the best parameters I could using grid search:
 
 ```python
