@@ -12,13 +12,12 @@ excerpt: A story of scraping CS:GO matches, extracting features and applying log
 comments: true
 ---
 
-One day I felt like doing something fun with my data science skills. I thought: what if I can predict CS:GO match winners? I have never been into esports, but it was interesting.
-I welcome you to come along my path in this post.
-I calrify this is not a tutorial, rather a story I want to share.
+What if I can predict CS:GO match winners? I have never been into esports, but this question got me interested.
+
+I calrify this is not a tutorial, rather a story I want to share. It's a simple examples of actual, practical and not overly complex use of a data science method. For fun.
 
 >__For the lazy__
->You can find the model evaluation results at the bottom.
->The csv files you can play around are also at the bottom.
+>You can find the model evaluation results and csv files to play with at the bottom.
 
 My workhorse was *Python 3.5*
 Libraries used: *asyncio*, *aiohttp*, *beautifulsoup*, *pandas*, *sklearn*.
@@ -269,10 +268,16 @@ A glance at the futures:
 
 ## Logistic regression, oh my
 
+>If you are not fimiliar with logistic regression make sure to read an introduction to it before continuing.
+>Here are a few I picked:
+> - [Logistic Regression in Python Using Rodeo](http://blog.yhat.com/posts/logistic-regression-python-rodeo.html)
+> - [Logistic Regression Tutorial for Machine Learning](http://machinelearningmastery.com/logistic-regression-tutorial-for-machine-learning/)
+> - [scikit-learn User guide](http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression)
+
 Now comes the part with applying a model and testing it.
 
 I chose *logistic regression* because it's enough for the task and also shows the significance of features after fitting.
-I used `sklearn.linear_model.LogisticRegression`. For validation `corss_val_score` and `ShuffleSplit` were useful.
+I used `sklearn.linear_model.LogisticRegression`. For validation `cross_val_score` and `ShuffleSplit` were useful.
 
 I established the best parameters I could using grid search:
 
@@ -387,3 +392,8 @@ I can't provide the original data (don't want the wrath of angry cs:go fans upon
 - Aggregation could be done with more *numpy*/*pandas* vectorization.
 - Inspecting prediction results showed that predicting pro matches was about 65% accurate at best, whilist predicting matches between unexperienced teams was more accurate. But it only means that between two unexperienced teams one  usuallyhas *at least some experience* and the other is completely new, so the prediction is easy to make. Perhaps using boosting to account for different kinds of matches would be wise.
 - Match type was calculated from the amount of maps played. So a best of two match that had gone for 3 maps was assigned type `bo3`. This might add confusion.
+
+## Further reading
+
+If you want to learn more about Logistic Regression and other methods, I would suggest to read [An Introduction to Statistical Learning
+with Applications in R](http://www-bcf.usc.edu/~gareth/ISL/)
