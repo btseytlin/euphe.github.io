@@ -1,15 +1,16 @@
 ---
 title: Proper workflow to deploy something with Ansible and Docker.
-date: 2016-02-09 09:27:00 +03:00
+date: {}
 categories:
-- devops
-- dont-make-my-mistake
+  - devops
+  - dont-make-my-mistake
 tags:
-- ansible
-- docker
-- gitlab
+  - ansible
+  - docker
+  - gitlab
 excerpt: Don't make my mistake of believing Ansible will do everything for you.
 comments: true
+published: true
 ---
 
 ### Pre-note
@@ -39,6 +40,7 @@ Here's the big deal: you can combine Docker and Ansible.
 There are three ways to achieve it:
 1. Use Ansible to run the `docker` command on target host.
 Example of using Ansible to run the command taken from [Gitlab docs](https://docs.gitlab.com/omnibus/docker/README.html#run-the-image):
+
 ```yaml
 ---
 - hosts: [gitlab]
@@ -58,11 +60,13 @@ Example of using Ansible to run the command taken from [Gitlab docs](https://doc
         gitlab/gitlab-ce:latest
 
 ``` 
+
 Put it in 'gitlab.yml', add a 'gitlab' group to Ansible inventory, run 'ansible-playbook gitlab' and __bam__, your host has Gitlab fully setup.
 Bonus: You can add [variables]() to change the hostname, ports, and gitlab image from a config file. Yay, reusability!
 
 2. Create a local `docker-composes.yml` file, deploy it to target host, run `docker-compose` command on host.
 Example:
+
 ```yaml
 ---
 - hosts: [gitlab]
@@ -76,6 +80,7 @@ Example:
     - name: start gitlab docker containers
       command: docker-compose -f ~/gitlab.yml up -d
 ```
+
 Bonus: You can make `docker-composes/gilab.yml` a `.j2` [template](http://docs.ansible.com/ansible/latest/playbooks_templating.html) to get the reusability benefit of varibles.
 
 3. Use Ansible's [`docker_container`](http://docs.ansible.com/ansible/docker_container_module.html).
@@ -83,6 +88,7 @@ You get the benefits of `docker-composes` with the readability of keeping everyt
 You can even declare multiple containers and link them to eachother, like you would in a `docker-composes` file.
 And you can use the variables right here.
 Example:
+
 ```yaml
 ---
 - hosts: [gitlab]
@@ -108,8 +114,9 @@ Example:
           - "{{host_gitlab_directory_path}}/data:/var/opt/gitlab"
 
 ``` 
+
 You guessed it, this is my favourite version.
 
 # My mistake
 
-I really liked Ansible. It seemed like system administration will never be a pain again. It seemed like you don't need to do anything by hand. Good bye one-off solutions, now you can write a playbook ( or just [download it](https://galaxy.ansible.com/) ) and get a configurable, reusable, general solution. 
+I really liked Ansible. It seemed like system administration will never be a pain again. It seemed like you don't need to do anything by hand. Good bye one-off solutions, now you can write a playbook ( or just [download it](https://galaxy.ansible.com/) ) and get a configurable, reusable, general solution.
