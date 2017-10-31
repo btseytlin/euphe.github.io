@@ -1,5 +1,13 @@
 ---
 published: false
+date: 2017-10-31T06:27:00.000Z
+categories:
+  - devops
+tags:
+  - ansible
+  - docker
+excerpt: 'Run Ansible on Windows in a Docker container, use it as if you were on Linux'
+comments: true
 ---
 ## How to run Ansible on Windows (or anywhere else) with Docker
 
