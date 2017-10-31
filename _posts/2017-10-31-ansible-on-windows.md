@@ -1,6 +1,6 @@
 ---
 published: true
-date: 2017-10-31T06:27:00.000Z
+date: {}
 categories:
   - devops
 tags:
@@ -47,7 +47,7 @@ What happens next: the image is built, the container is run in detached mode.
 
 5. Attach to it for the bash session
 ```
-$ docker exec -it prod_ansible_1 /bin/bash
+$ docker exec -it project_ansible_1 /bin/bash
 bash-4.3# ansible --version
 ansible 2.2.2.0
   config file = /ansible/exploitation/ansible.cfg
@@ -58,7 +58,7 @@ Now you can run whatever Ansible commands you want.
 
 6. Exec any command without attaching
 ```
-$ docker exec -it prod_ansible_1 ansible --version
+$ docker exec -it project_ansible_1 ansible --version
 ansible 2.2.2.0
   config file = /ansible/exploitation/ansible.cfg
   configured module search path = Default w/o overrides
