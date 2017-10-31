@@ -1,6 +1,6 @@
 ---
 published: true
-date: {}
+date: 2017-10-31T06:27:00.000Z
 categories:
   - devops
 tags:
@@ -68,6 +68,4 @@ ansible 2.2.2.0
 
 Now you can take advantage of Ansible as if you were on Linux.
 This approach is not much different from the common "run a Linux VM with Vagrant" solution.
-But it's simple, and only requires you to copy paste two files and run a command. 
-
-
+But it's simple, and only requires you to copy paste two files and run a command.
