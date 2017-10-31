@@ -8,7 +8,7 @@ collections:
   uploads:
     title: Uploads
     output: true
-email: 
+email: b.tseytlin@lambda-it.ru
 description: 
 url: https://euphe.github.io
 markdown: kramdown
@@ -27,7 +27,7 @@ owner:
   avatar: 
   job: 
   bio: 
-  email: 
+  email: b.tseytlin@lambda-it.ru
   disqus-shortname: euphe
   twitter: 
   facebook: 
@@ -38,7 +38,7 @@ owner:
     ad-client: 
     ad-slot: 
   bing-verify: 
-  github: 
+  github: Euphe
   gitlab: 
   stackoverflow: 
   linkedin: 
@@ -56,4 +56,4 @@ owner:
   weibo: 
   flickr: 
   500px: 
-  codepen: 
+  codepen:
